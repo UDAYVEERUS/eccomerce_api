@@ -2,7 +2,6 @@ const Products = require("./productSchema")
 
 const productsGetHome = async (req, res, next) => {
     try {
-        console.log("here5")
         const product_response = await Products.find({}).where("onHome").equals(true)
         const latest_products_response = await Products.find({}).sort({ created_at: -1 }).limit(8)
         if (product_response) {

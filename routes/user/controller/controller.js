@@ -97,4 +97,32 @@ const userGetById = async (req, res, next) => {
     }
 
 }
-module.exports = { userRegister, userLogin, userGetById }
+
+const usersGet = async (req, res, next) => {
+    try {
+        // console.log(req.jwt_Data,"here75")
+        const user_response = await User.find({})
+        if (user_response) {
+            return res.status(201).json({
+                message : "users fetched successfully",
+                data : user_response,
+                status : 201
+
+            })
+        }
+
+        return res.status(401).json({
+            message: "unable to fetch users",
+            status: 401
+        })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({
+            message: "something went wrong",
+            data: err,
+            status: 500
+        })
+    }
+
+}
+module.exports = { userRegister, userLogin, userGetById, usersGet }
